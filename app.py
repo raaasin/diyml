@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    print(request.form)
     if request.method == 'POST':
         num_points = int(request.form['num_points'])
         x_values = []
@@ -22,7 +23,7 @@ def index():
 
         slope, intercept, r_value, p_value, std_err = stats.linregress(x_values, y_values)
         
-        return render_template('index.html', results=True, slope=slope, intercept=intercept, r_squared=r_value**2)
+        return render_template('index.html', results=True, num_points=num_points, slope=slope, intercept=intercept, r_squared=r_value**2)
 
     return render_template('index.html', results=False)
 
