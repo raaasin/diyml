@@ -6,7 +6,6 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    print(request.form)
     if request.method == 'POST':
         num_points = int(request.form['num_points'])
         x_values = []
