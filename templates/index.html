@@ -7,31 +7,37 @@
     <h1>Linear Regression App</h1>
     <form method="POST" action="/">
         <label for="num_points">Enter the number of data points:</label>
-        <input type="number" name="num_points" required>
+        <input type="number" name="num_points" id="num_points" required>
         <br><br>
-
-        {% if results %}
-        <h2>Regression Results:</h2>
-        <p>Slope: {{ slope }}</p>
-        <p>Intercept: {{ intercept }}</p>
-        <p>R-squared: {{ r_squared }}</p>
-        {% endif %}
-
-        <h2>Enter Data Points:</h2>
-        {% if results %}
-        {% for i in range(num_points) %}
-        <label for="x_{{ i }}">x{{ i+1 }}:</label>
-        <input type="number" name="x_{{ i }}" required>
-        <label for="y_{{ i }}">y{{ i+1 }}:</label>
-        <input type="number" name="y_{{ i }}" required>
-        <br><br>
-        {% endfor %}
-        {% else %}
-        <p>Please enter the number of data points and submit to proceed.</p>
-        {% endif %}
         
+        <div id="data-points">
+            <!-- Data points input fields will be added here dynamically -->
+        </div>
+
         <br>
+        <input type="button" value="Add Data Points" onclick="addDataPoints()">
         <input type="submit" value="Calculate">
     </form>
+
+    <script>
+        function addDataPoints() {
+            const numPoints = parseInt(document.getElementById('num_points').value);
+            const dataPointsDiv = document.getElementById('data-points');
+
+            dataPointsDiv.innerHTML = "";  // Clear previous input fields
+
+            for (let i = 0; i < numPoints; i++) {
+                const inputDiv = document.createElement('div');
+                inputDiv.innerHTML = `
+                    <label for="x_${i}">x${i + 1}:</label>
+                    <input type="number" name="x_${i}" required>
+                    <label for="y_${i}">y${i + 1}:</label>
+                    <input type="number" name="y_${i}" required>
+                    <br><br>
+                `;
+                dataPointsDiv.appendChild(inputDiv);
+            }
+        }
+    </script>
 </body>
 </html>
